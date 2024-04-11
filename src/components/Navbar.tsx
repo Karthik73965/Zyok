@@ -2,9 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from '@/ui/moving-border';
 import { RiArrowDropDownLine, } from 'react-icons/ri';
+import { UserButton, useUser } from '@clerk/nextjs';
+import Link from 'next/link';
 type Props = {}
 
 export default function Navbar({ }: Props) {
+  const { user, isLoaded } = useUser()
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -31,12 +34,21 @@ export default function Navbar({ }: Props) {
         <li>Plans</li>
         <li>FAQ's</li>
       </ul>
-      <Button
+      {
 
-        className=" dark:bg-slate-900  w-40 h-10 text-white  border-slate-800"
-      >
-        Get Started
-      </Button>
+        isLoaded && user ? 
+        <UserButton afterSignOutUrl='/'/>
+      
+      :
+         <Link href={'/Dashboard'}>
+           <Button
+
+className=" dark:bg-slate-900  w-40 h-10 text-white  border-slate-800"
+>
+Get Started
+</Button>
+         </Link>
+      }
     </nav>
   )
 }
