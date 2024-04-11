@@ -4,12 +4,17 @@ import { Button } from '@/ui/moving-border';
 import { RiArrowDropDownLine, } from 'react-icons/ri';
 import { UserButton, useUser } from '@clerk/nextjs';
 import Link from 'next/link';
+import { Console } from 'console';
 type Props = {}
 
 export default function Navbar({ }: Props) {
   const { user, isLoaded } = useUser()
   const [isScrolled, setIsScrolled] = useState(false);
-
+  console.log(user)
+  console.log("firstname" , user?.username || user?.firstName)
+  console.log("imageUrl", user?.imageUrl)
+  console.log( "id " , user?.id), 
+  console.log( "email" ,user?.emailAddresses[0].emailAddress)
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -35,10 +40,11 @@ export default function Navbar({ }: Props) {
         <li>FAQ's</li>
       </ul>
       {
-
-        isLoaded && user ? 
+        
+        isLoaded && user ? <div className='flex gap-x-5'>
+        <span className='mt-1'>{user?.firstName}</span>
         <UserButton afterSignOutUrl='/'/>
-      
+        </div>
       :
          <Link href={'/Dashboard'}>
            <Button
