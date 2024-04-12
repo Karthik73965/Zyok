@@ -6,8 +6,7 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
-
-model User {
+model user {
   userId     String   @id @default(uuid()) @map("_id") // Custom ID with UUID default
   Id         String
   username   String

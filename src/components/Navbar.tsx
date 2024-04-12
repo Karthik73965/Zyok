@@ -8,8 +8,8 @@ import { Console } from 'console';
 type Props = {}
 
 export default function Navbar({ }: Props) {
-  const { user, isLoaded } = useUser()
   const [isScrolled, setIsScrolled] = useState(false);
+  const { user, isLoaded } = useUser()
   console.log(user)
   console.log("firstname" , user?.username || user?.firstName)
   console.log("imageUrl", user?.imageUrl)
