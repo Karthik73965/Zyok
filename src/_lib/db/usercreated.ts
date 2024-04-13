@@ -33,7 +33,7 @@ export async function usercreated({
   
       } catch (error) {
         console.error(error);
-        return 'nmadda gudavalli'
+        return 'error'
       }
     
 }  

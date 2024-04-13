@@ -49,14 +49,17 @@ export async function POST(req: Request,    ) {
   const eventType = evt.type;
   if (eventType === "user.created") {
     try {
-      await usercreated({
+      const something = await usercreated({
         email: payload?.data?.email_addresses?.[0]?.email_address,
         username: payload?.data?.first_name || payload?.data?.username,
         img_link: payload?.data?.profile_image_url ,
         Id: payload?.data?.id,
       });
+      if(something ){
+        return NextResponse.json({messsage:"I think its doen "})
+      }
     } catch (error: any) {
-      throw new Error(error.message);
+      throw NextResponse.json("worst case")
     }
   }
 }
