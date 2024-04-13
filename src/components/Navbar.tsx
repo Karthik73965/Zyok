@@ -37,7 +37,7 @@ export default function Navbar({ }: Props) {
         <li className='flex'>Feautures <RiArrowDropDownLine size={20} className='text-gray-700' /></li>
         <li>Docs</li>
         <li>Plans</li>
-        <li>FAQ's</li>
+        <li>FAQs</li>
       </ul>
       {
         

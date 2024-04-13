@@ -20,7 +20,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@components/*":["./componnets/*"],
-      "@lib/*":["./lib/*"],
+      "@lib/*":["./utils/*"],
       "@ui/*":["./ui/*"],
       "@DashComp/*":["./Components/* "]
     }

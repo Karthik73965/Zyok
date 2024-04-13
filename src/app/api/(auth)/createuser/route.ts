@@ -1,58 +1,62 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
-import * as z from 'zod';
-import { NextResponse } from 'next/server';
+import { usercreated } from "@/_lib/db/usercreated";
+import { WebhookEvent } from "@clerk/nextjs/server";
+import { NextApiResponse } from "next";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import { Webhook } from "svix";
 
-const prisma = new PrismaClient();
+export async function POST(req: Request,    ) {
+  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  if (!WEBHOOK_SECRET) {
+    throw new Error(
+      "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
+    );
+  }
+  const headerPayload = headers();
+  const svix_id = headerPayload.get("svix-id");
+  const svix_timestamp = headerPayload.get("svix-timestamp");
+  const svix_signature = headerPayload.get("svix-signature");
 
-const userSchema = z.object({
-  username: z.string().nonempty({ message: 'Username is required' }),
-  email: z.string().email({ message: 'Invalid email format' }), // Assuming unique email constraint in Prisma
-  img_link: z.string(), // Optional image link
-  workspaces: z.number().nonnegative().int({ message: 'Workspaces must be a non-negative integer' }).optional(),
-  LinksNo: z.number().nonnegative().int({ message: 'LinksNo must be a non-negative integer' }).optional(),
-  premium: z.boolean().optional(),
-  Id :z.string()
-});
+  // If there are no headers, error out
+  if (!svix_id || !svix_timestamp || !svix_signature) {
+    return NextResponse.json("Error occured -- no svix headers", {
+      status: 400,
+    });
+  }
 
-export  async function POST(req: Request, res: NextApiResponse) {
- 
-    const userBody = await req.json();
-    console.log(userBody)
+  // Get the body
+  const payload = await req.json();
+  const body = JSON.stringify(payload);
 
+  // Create a new SVIX instance with your secret.
+  const wh = new Webhook(WEBHOOK_SECRET);
+
+  let evt: WebhookEvent;
+
+  try {
+    evt = wh.verify(body, {
+      "svix-id": svix_id,
+      "svix-timestamp": svix_timestamp,
+      "svix-signature": svix_signature,
+    }) as WebhookEvent;
+  } catch (err) {
+    console.error("Error verifying webhook:", err);
+    return NextResponse.json("Error occured", {
+      status: 400,
+    });
+  }
+  const { id } = evt.data;
+  const eventType = evt.type;
+  if (eventType === "user.created") {
     try {
-      const parsedUser = userSchema.safeParse(userBody);
-
-      if (!parsedUser.success) {
-        console.log(  parsedUser.error.issues);
-        console.log("body" , req.body)
-        
-        return new Response("chudu")
-      }
-
-      const { username, email, img_link, Id , workspaces, LinksNo, premium } = parsedUser.data;
-
-      const newUser = await prisma.user.create({
-        data: {
-          username,
-          email,
-          img_link, 
-          workspaces,
-          LinksNo,
-          premium,
-          Id
-        },
+      await usercreated({
+        email: payload?.data?.email_addresses?.[0]?.email_address,
+        username: payload?.data?.first_name || payload?.data?.username,
+        img_link: payload?.data?.profile_image_url ,
+        Id: payload?.data?.id,
       });
-      return NextResponse.json({
-        message: newUser
-      },{
-        status:201
-      })
-
-    } catch (error) {
-      console.error(error);
-      return new Response (`madda gudavalli`, {
-        status:400
-      })
+    } catch (error: any) {
+      throw new Error(error.message);
     }
+  }
 }

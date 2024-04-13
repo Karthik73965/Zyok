@@ -20,7 +20,7 @@ export default function ButtonWorkspace() {
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Make changes to your profile here. Click save when youre done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
