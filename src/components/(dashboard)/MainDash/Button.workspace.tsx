@@ -12,9 +12,9 @@ import { FiEdit } from "react-icons/fi";
 export default function ButtonWorkspace() {
   return (
     <Dialog >
-      <DialogTrigger  asChild>
+      <DialogTrigger asChild>
         <button className="text-white bg-black rounded-xl h-10 flex py-1 px-2 pt-2 " >Create Workspace <FiEdit className="m-1" />
-</button>
+        </button>
       </DialogTrigger>
       <DialogContent className=" bg-white sm:max-w-[425px] ">
         <DialogHeader>
@@ -28,7 +28,7 @@ export default function ButtonWorkspace() {
             <label htmlFor="name" className="text-right">
               Name
             </label>
-            <input  id="name"  className="col-span-3" />
+            <input id="name" className="col-span-3" />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <label htmlFor="username" className="text-right">

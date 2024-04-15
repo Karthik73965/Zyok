@@ -10,14 +10,14 @@ const userSchema = z.object({
   workspaces: z.number().nonnegative().int({ message: 'Workspaces must be a non-negative integer' }).optional(),
   LinksNo: z.number().nonnegative().int({ message: 'LinksNo must be a non-negative integer' }).optional(),
   premium: z.boolean().optional(),
-  Id :z.string()
+  userId :z.string()
 });
 type userCreateProps = z.infer<typeof userSchema>;
 
 export async function usercreated({
     email,
     username,
-    Id,
+    userId,
     img_link
   }: userCreateProps) {
     try {  
@@ -26,9 +26,16 @@ export async function usercreated({
             username,
             email,
             img_link, 
-            Id
+            userId
           },
         });
+        const WorkspacesInit = await prisma.workspaces.create ({
+          data:{
+            userId,
+            name :"default workspace",
+            description:"you can add description like this"
+          }
+        })
         return newUser
   
       } catch (error) {
