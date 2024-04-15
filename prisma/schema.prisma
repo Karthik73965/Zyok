@@ -14,7 +14,7 @@ model user {
   email         String
   img_link      String
   workspacesRel workspaces[]
-  workspaces    Int          @default(0)
+  workspaceNO    Int          @default(0)
   LinksNo       Int          @default(0)
   premium       Boolean      @default(false)
   createdAt     DateTime     @default(now())

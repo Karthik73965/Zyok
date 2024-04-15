@@ -17,46 +17,50 @@ import { IoIosArrowUp } from "react-icons/io";
 
 type Props = {
   Workspaces: Array<{
-    Name: string,
+    name: string,
     Submissions: Number,
     Subscribed: boolean
-  }>
+  }> 
 }
 
 export default function DropdownMenuDemo({ Workspaces }: Props) {
+  console.log("is this ")
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <span className="flex justify-center align-middle gap-x-3 cursor-pointer  ">
-          <button className="text-white  bg-black rounded-full w-7 h-7 overflow-hidden">
-            {Workspaces[0].Name[0]}
-          </button>
-          <div className="mt-[3px]">
-            {Workspaces[0].Name}
-          </div>          <div className="pb-2  mb-2">
-            {Workspaces[3].Subscribed ? "" : <div className="rounded-xl px-2  py-1 -ml-3 scale-75 bg-black text-xs text-white">Free</div>}
+    <>
+  <DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <span className="flex justify-center align-middle gap-x-3 cursor-pointer  ">
+      <button className="text-white  bg-black rounded-full w-7 h-7 overflow-hidden">
+        {Workspaces[0].name[0]}
+      </button>
+      <div className="mt-[3px]">
+        {Workspaces[0].name}
+      </div>          <div className="pb-2  mb-2">
 
-          </div>
-          <span className="grid mt-1  ">
-            <IoIosArrowUp size={10} className="-mb-2" />
-            <IoIosArrowDown size={10} />
-          </span>
-        </span>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className=" ml-16 -mt-2 z-10 bg-white w-52">
-        <DropdownMenuLabel>My Workspaces</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          {
-            Workspaces.map((e, index) => <div key={index}>{e.Name}</div>
-            )
-          }
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
 
-        <DropdownMenuSeparator />
+      </div>
+      <span className="grid mt-1  ">
+        <IoIosArrowUp size={10} className="-mb-2" />
+        <IoIosArrowDown size={10} />
+      </span>
+    </span>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent className=" ml-16 -mt-2 z-10 bg-white w-52">
+    <DropdownMenuLabel>My Workspaces</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuGroup>
+      {
+        Workspaces.map((e, index) => <div key={index}>{e.name}</div>
+        )
+      }
+    </DropdownMenuGroup>
+    <DropdownMenuSeparator />
 
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <DropdownMenuSeparator />
+
+  </DropdownMenuContent>
+</DropdownMenu> 
+ 
+ </>
   )
 }

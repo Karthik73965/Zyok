@@ -42,8 +42,16 @@ export default function Navbar({ }: Props) {
       {
 
         isLoaded && user?.id ? <div className='flex gap-x-5'>
-          <span className='mt-1'>{user?.firstName}</span>
-          <UserButton afterSignOutUrl='/' />
+          <Link href={'/Dashboard'}>
+            <Button
+
+              className=" dark:bg-slate-900  w-40 h-10 text-white  border-slate-800"
+            >
+              Dashboard
+            </Button>
+          </Link>
+      
+         
         </div>
           :
           <Link href={'/Dashboard'}>
