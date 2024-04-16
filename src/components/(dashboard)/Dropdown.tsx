@@ -24,7 +24,6 @@ type Props = {
 }
 
 export default function DropdownMenuDemo({ Workspaces }: Props) {
-  console.log("is this ")
   return (
     <>
   <DropdownMenu>
