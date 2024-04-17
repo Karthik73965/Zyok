@@ -24,6 +24,7 @@ model user {
 model workspaces {
   Id          String   @id @default(uuid()) @map("_id") // Custom ID with UUID default
   userId      String
+  WorkspaceId  String?  @default(uuid())
   name        String
   description String?
   isDefault   Boolean  @default(false)

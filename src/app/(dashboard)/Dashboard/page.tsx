@@ -5,20 +5,20 @@ import ButtonWorkspace from '@/components/(dashboard)/MainDash/Button.workspace'
 import CardsWorkspaces from '@/components/(dashboard)/MainDash/CardsWorkspaces'
 import { useUser } from '@clerk/nextjs'
 import { useState , useEffect } from 'react'
+import { GetWorkspace } from '@/_lib/actions/Workspace.actions'
 type Props = {}
 
 export default function Page({ }: Props) {
   const { user, isLoaded } = useUser()
   const [workspaces, setWorkspaces] = useState<any>([])
   const [fetchend, setfetchend] = useState(false)
-  console.log(workspaces)
+  const userId = user?.id 
+  const WorkspaceId ="7581a288-ac56-4b85-8587-7c1fee1729e4"
 
   useEffect(() => {
     const fetchWorkspaces = async () => {
       try {
         const fetchedWorkspaces = await getWorkspaces(user?.id);
-        console.log(fetchedWorkspaces);
-
         setWorkspaces(fetchedWorkspaces.workspaces);
         setfetchend(true)
 
@@ -27,7 +27,18 @@ export default function Page({ }: Props) {
         // Handle errors here (display to user, etc.)
       }
     };
+    const getwp = async ()=>{
+      try {
+        const FetchedWorkspce= await GetWorkspace(userId , WorkspaceId  )
+        console.log(FetchedWorkspce)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     fetchWorkspaces()
+    getwp()
+
   }, [isLoaded, user?.id])
   return (
     <main className='bg-white'>
@@ -39,8 +50,6 @@ export default function Page({ }: Props) {
       <section className='mx-[10vw] mt-10  grid gap-y-6  grid-cols-3 justify-between'>
         {
           fetchend && workspaces?.map((i: any, index: any) => {
-            console.log(i)
-
             return <CardsWorkspaces name={i.name} key={index} description={i?.description} FormsNo={i.FormsNo} FormSubmit={i.FormSubmit} />
           })
         }

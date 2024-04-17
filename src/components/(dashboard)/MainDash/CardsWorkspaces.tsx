@@ -4,7 +4,6 @@ import { IoMdSend } from "react-icons/io";
 type Props = {name :string,description?:String,FormsNo:Number,FormSubmit:Number }
 
 export default function CardsWorkspaces({name,description,FormsNo,FormSubmit }: Props) {
-    console.log( name,description,FormsNo,FormSubmit )
     return (
         <section className=' w-[350px] border-[0.5px] border-gray-400 rounded-xl p-6 pr-10 shadow-2xl'>
             <div className='flex justify-between align-middle'>
