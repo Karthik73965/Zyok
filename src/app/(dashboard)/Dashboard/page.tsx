@@ -1,24 +1,24 @@
-'use client'
+"use client"
 import { getWorkspaces } from '@/_lib/actions/UserActions'
 import DashNav from '@/components/(dashboard)/DashNav'
 import ButtonWorkspace from '@/components/(dashboard)/MainDash/Button.workspace'
 import CardsWorkspaces from '@/components/(dashboard)/MainDash/CardsWorkspaces'
 import { useUser } from '@clerk/nextjs'
-import { useEffect, useState } from 'react'
+import { useState , useEffect } from 'react'
 type Props = {}
 
-export default function page({ }: Props) {
-  const {user,isLoaded} = useUser()
+export default function Page({ }: Props) {
+  const { user, isLoaded } = useUser()
   const [workspaces, setWorkspaces] = useState<any>([])
-  const[fetchend , setfetchend]= useState(false)
-  console.log( workspaces)
+  const [fetchend, setfetchend] = useState(false)
+  console.log(workspaces)
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchWorkspaces = async () => {
       try {
         const fetchedWorkspaces = await getWorkspaces(user?.id);
-        console.log( fetchedWorkspaces);
-        
+        console.log(fetchedWorkspaces);
+
         setWorkspaces(fetchedWorkspaces.workspaces);
         setfetchend(true)
 
@@ -28,7 +28,7 @@ export default function page({ }: Props) {
       }
     };
     fetchWorkspaces()
-  },[isLoaded])
+  }, [isLoaded, user?.id])
   return (
     <main className='bg-white'>
       <DashNav />
@@ -37,13 +37,13 @@ export default function page({ }: Props) {
         <ButtonWorkspace />
       </section>
       <section className='mx-[10vw] mt-10  grid gap-y-6  grid-cols-3 justify-between'>
-       {
-         fetchend && workspaces?.map((i:any)=>{
-          console.log(i)
+        {
+          fetchend && workspaces?.map((i: any, index: any) => {
+            console.log(i)
 
-          return <CardsWorkspaces name= {i.name} description={i?.description} FormsNo={i.FormsNo} FormSubmit={i.FormSubmit} />
-        })
-       }
+            return <CardsWorkspaces name={i.name} key={index} description={i?.description} FormsNo={i.FormsNo} FormSubmit={i.FormSubmit} />
+          })
+        }
       </section>
     </main>
   )

@@ -72,7 +72,7 @@ export default function DashNav({ }: Props) {
       fetchUserDetails();
       fetchWorkspaces();
     }
-  }, [isLoaded]);
+  }, [isLoaded ,user?.id]);
 
   return (
     <header className='px-[10vw]  border-b-[1px] py-4 border-gray-200'>
