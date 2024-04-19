@@ -39,11 +39,14 @@ export default function Page({ }: Props) {
     fetchWorkspaces()
     getwp()
 
-  }, [isLoaded, user?.id])
+  }, [isLoaded, user?.id ,userId])
   return (
-    <main className='bg-white'>
+    <>
+      <div className='mb-20'>
       <DashNav />
-      <section className='h-16 a flex justify-between align-middle mx-[10vw] my-10'>
+      </div>
+    <main className='bg-white'>
+      <section className='h-16  flex justify-between align-middle mx-[10vw] my-10'>
         <div className='text-3xl text-gray-600'>Your Workspaces</div>
         <ButtonWorkspace />
       </section>
@@ -55,5 +58,6 @@ export default function Page({ }: Props) {
         }
       </section>
     </main>
+    </>
   )
 }

@@ -58,7 +58,6 @@ export default function DashNav({ }: Props) {
     const fetchWorkspaces = async () => {
       try {
         const fetchedWorkspaces = await getWorkspaces(user?.id);
-        console.log( fetchedWorkspaces);
         
         setWorkspaces(fetchedWorkspaces.workspaces);
 
@@ -75,7 +74,8 @@ export default function DashNav({ }: Props) {
   }, [isLoaded ,user?.id]);
 
   return (
-    <header className='px-[10vw]  border-b-[1px] py-4 border-gray-200'>
+ <main className='fixed top-0 right-0 left-0 z-10 bg-white'> 
+     <header className='px-[10vw]  border-b-[1px] py-4 border-gray-200'>
       <nav className=' flex justify-between   align-middle'>
         <div>
           <span className='text-xl flex  gap-x-2 '>
@@ -93,14 +93,18 @@ export default function DashNav({ }: Props) {
             </span>
           </span>
         </div>
+       {
+        workspaces ? 
         <div className='flex   gap-x-4 '>
-          <span className='mt-1 text-gray-700'>Report</span>
-          <span className='mt-1 text-gray-700 mr-5'>Help</span>
-          {
-           workspaces.length >0 ? <Dropdown Workspaces={workspaces} /> : ""
-          }
-        </div>
+        <span className='mt-1 text-gray-700'>Report</span>
+        <span className='mt-1 text-gray-700 mr-5'>Help</span>
+        {
+         workspaces.length >0 ? <Dropdown Workspaces={workspaces} /> : ""
+        }
+      </div> :""
+       }
       </nav>
     </header>
+ </main>
   )
 }
