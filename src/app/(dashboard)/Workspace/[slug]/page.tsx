@@ -7,6 +7,7 @@ import { GetWorkspace } from '@/_lib/actions/Workspace.actions';
 import { useEffect, useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 import Endpointbox from '@/components/(dashboard)/Endpoints/Endpoint.box';
+import { error } from 'console';
 type Props = {}
 
 export default function Page({ params }: { params: { slug: string } }) {
@@ -18,14 +19,14 @@ export default function Page({ params }: { params: { slug: string } }) {
   useEffect(() => {
     const Fetching = async () => {
       const FetchedWorkspace = await GetWorkspace(userId, WorkspaceId)
-
-      SetWorkspaceInfo(FetchedWorkspace?.workspace[0])
-
+      const id = userId
+      if(FetchedWorkspace?.workspace[0].userId == id){
+        SetWorkspaceInfo(FetchedWorkspace?.workspace[0])
+      }
     }
-
     Fetching()
 
-  }, [isLoaded])
+  }, [isLoaded ,userId])
 
   return (
     <>
