@@ -7,12 +7,13 @@ import { GetWorkspace } from '@/_lib/actions/Workspace.actions';
 import { useEffect, useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 import Endpointbox from '@/components/(dashboard)/Endpoints/Endpoint.box';
-import { error } from 'console';
 type Props = {}
 
 export default function Page({ params }: { params: { slug: string } }) {
   console.log(params.slug)
   const [WorkspaceInfo, SetWorkspaceInfo] = useState<Object | any>({})
+  const [links , setlinks] = useState<any[]>([])
+  console.log(links)
   const WorkspaceId = params.slug
   const { user, isLoaded } = useUser()
   const userId = user?.id
@@ -25,8 +26,19 @@ export default function Page({ params }: { params: { slug: string } }) {
       }
     }
     Fetching()
-
   }, [isLoaded ,userId])
+  useEffect(()=>{
+    fetch('/api/GetLinks' ,  {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        WorkspaceId:params.slug
+      })
+    }).then((res)=>res.json()).then((data)=>setlinks(data))
+    
+  },[params.slug])
 
   return (
     <>
@@ -39,14 +51,21 @@ export default function Page({ params }: { params: { slug: string } }) {
           <div className='text-3xl '> {
               WorkspaceInfo ? <div className='capitalize text-bal'>{WorkspaceInfo.name} - <span className='text-gray-500'>Links</span></div> : ""
             } </div>
-          <ButtonLink />
+          <ButtonLink Work_Id={WorkspaceId} />
         </section>
         <section className='flex px-[10vw]'>
           <section className='w-[500px]  bg-black h-[30vh]'>&nbsp;</section>
           <section className=' mx-5  grid  gap-y-5 '>
-            <Endpointbox/>
-            <Endpointbox/>
-            <Endpointbox/>
+         {/* {
+          links.map((i, index)=>{
+            return <div key={index}>{i.Endpoint} {i.submissions.toString()} {i.email} {i.webhook ==null ? "no":i.webhook} {i.slack_wh ==null ? "no":i.slack_wh} {i.discord_wh ==null ? "no":i.discord_wh}  </div>
+          })
+         } */}
+         {
+          links.map((i, index)=>{
+                return <Endpointbox key={index} Endpoint={i.Endpoint} email={i.email} slack_wh={i.slack_wh} discord_wh={i.discord_wh} webhook={i.webhook} Submissions={i.submissions }/>
+          })
+         }
           </section>
           <section className='w-[500px]  bg-black h-[30vh]'>&nbsp;</section>
         </section>

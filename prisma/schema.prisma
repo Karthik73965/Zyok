@@ -38,8 +38,8 @@ model workspaces {
 model endpoint {
   Id          String   @id @default(uuid()) @map("_id")
   EndpointId  String   @default(uuid())
-  Endpoint    String
   userId      String
+  Endpoint    String
   WorkspaceId String
   email       String?
   discord_wh  String?
