@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     <>
       <div className='mb-20'>
         <DashNav />
-        <WorkspaceDash />``
+        <WorkspaceDash />
       </div>
       <main className='bg-white pt-10'>
         <section className='h-16 a flex justify-between align-middle mx-[10vw] my-10'>

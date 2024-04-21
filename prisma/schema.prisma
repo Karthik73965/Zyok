@@ -14,7 +14,7 @@ model user {
   email         String
   img_link      String
   workspacesRel workspaces[]
-  workspaceNO    Int          @default(0)
+  workspaceNO   Int          @default(0)
   LinksNo       Int          @default(0)
   premium       Boolean      @default(false)
   createdAt     DateTime     @default(now())
@@ -24,13 +24,29 @@ model user {
 model workspaces {
   Id          String   @id @default(uuid()) @map("_id") // Custom ID with UUID default
   userId      String
-  WorkspaceId  String?  @default(uuid())
+  WorkspaceId String?  @default(uuid())
   name        String
   description String?
   isDefault   Boolean  @default(false)
   FormsNo     Int      @default(0)
   FormSubmit  Int      @default(0)
   user        user     @relation(fields: [userId], references: [Id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}
+
+model endpoint {
+  Id          String   @id @default(uuid()) @map("_id")
+  EndpointId  String   @default(uuid())
+  Endpoint    String
+  userId      String
+  WorkspaceId String
+  email       String?
+  discord_wh  String?
+  slack_wh    String?
+  webhook     String?
+  submissions Int      @default(0)
+  premium     Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
 }

@@ -1,10 +1,12 @@
+import Link from 'next/link';
 import React from 'react'
 import { IoMdSend } from "react-icons/io";
 
-type Props = {name :string,description?:String,FormsNo:Number,FormSubmit:Number }
+type Props = {name :string,description?:String,FormsNo:Number,FormSubmit:Number  , WorkspaceId :String}
 
-export default function CardsWorkspaces({name,description,FormsNo,FormSubmit }: Props) {
+export default function CardsWorkspaces({name,description,FormsNo,FormSubmit , WorkspaceId}: Props) {
     return (
+        <Link href={`/Workspace/${WorkspaceId}`}>
         <section className=' w-[350px] border-[0.5px] border-gray-400 rounded-xl p-6 pr-10 shadow-2xl'>
             <div className='flex justify-between align-middle'>
                 <div className='flex'>
@@ -29,5 +31,6 @@ export default function CardsWorkspaces({name,description,FormsNo,FormSubmit }: 
             <span className='text-sm'> {FormSubmit.toString()} Submitted</span>
            </div>
         </section>
+        </Link>
     )
 }

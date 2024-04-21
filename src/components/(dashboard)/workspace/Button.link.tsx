@@ -13,6 +13,7 @@ import { FiEdit } from "react-icons/fi";
 import { useRouter } from "next/navigation"; // For redirection
 import { useState } from "react";
 import { CreateWorkSpace } from "@/_lib/actions/Workspace.actions";
+import { TfiReload } from "react-icons/tfi";
 
 export default function Buttonendpoint() {
   const { user } = useUser();
@@ -55,7 +56,7 @@ export default function Buttonendpoint() {
           Create endpoint <FiEdit className="m-1" />
         </button>
       </DialogTrigger>
-      <DialogContent className="bg-white sm:max-w-[425px]">
+      <DialogContent className="bg-white ">
         <DialogHeader>
           <DialogTitle>Create endpoint</DialogTitle>
           <DialogDescription>Fill out the details for your new endpoint .</DialogDescription>
@@ -64,15 +65,20 @@ export default function Buttonendpoint() {
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <label htmlFor="name" className="text-right">
-                Name
+              https://zyok.vercel.app/r/
               </label>
-              <input
+        
+         <div className="flex w-96 gap-x-5">
+         <input
                 id="name"
-                className="col-span-3"
+                className="col-span-3 ml-20 border-2 border-black "
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
+              <span><TfiReload  size={20}/></span>
+         </div>
+             
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <label htmlFor="description" className="text-right">

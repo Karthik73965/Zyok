@@ -53,7 +53,7 @@ export default function Page({ }: Props) {
       <section className='mx-[10vw] mt-10  grid gap-y-6  grid-cols-3 justify-between'>
         {
           fetchend && workspaces?.map((i: any, index: any) => {
-            return <CardsWorkspaces name={i.name} key={index} description={i?.description} FormsNo={i.FormsNo} FormSubmit={i.FormSubmit} />
+            return <CardsWorkspaces name={i.name} key={index} WorkspaceId={i.WorkspaceId} description={i?.description} FormsNo={i.FormsNo} FormSubmit={i.FormSubmit} />
           })
         }
       </section>
