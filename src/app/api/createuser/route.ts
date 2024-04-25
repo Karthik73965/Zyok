@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 
 export async function POST(req: Request,    ) {
-  const WEBHOOK_SECRET = "whsec_9aDCj7T8vDFv+plellTwYzLLDk9EJnyW";
+  const WEBHOOK_SECRET = "whsec_1hbCMv5+mmKX+J17zbQtL2m8lHMt/0ah"  ;
   if (!WEBHOOK_SECRET) {
     throw new Error(
       "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
@@ -55,12 +55,15 @@ export async function POST(req: Request,    ) {
         img_link: payload?.data?.profile_image_url ,
         userId: payload?.data?.id,
       });
-      const WorkspacesInit ="asdas"
       if(something ){
         return NextResponse.json({messsage:"I think its doen "})
       }
+      if(!something){
+        return NextResponse.json({message:"something happneded"})
+      }
     } catch (error: any) {
-      throw NextResponse.json("worst case")
+      console.log(error)
+      return  NextResponse.json("worst case")
     }
   }
 }
