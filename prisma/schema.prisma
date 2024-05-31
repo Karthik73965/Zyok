@@ -50,3 +50,21 @@ model endpoint {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
 }
+
+model submissions {
+  Id             String   @id @default(uuid()) @map("_id")
+  EndpointId     String
+  WorkspaceId    String
+  submissionId   String   @default(uuid())
+  webhook        String
+  webhook_status String   @default("nill")
+  discord        String
+  discord_status String   @default("nill")
+  slack          String
+  slack_status   String   @default("nill")
+  email          String
+  email_status   String   @default("nill")
+  no_feilds      Int
+  formdata       Json
+  submittedAt    DateTime @default(now())
+}
