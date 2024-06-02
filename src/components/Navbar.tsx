@@ -10,11 +10,6 @@ type Props = {}
 export default function Navbar({ }: Props) {
   const [isScrolled, setIsScrolled] = useState(false);
   const { user, isLoaded } = useUser()
-  console.log(user)
-  console.log("firstname", user?.username || user?.firstName)
-  console.log("imageUrl", user?.imageUrl)
-  console.log("id ", user?.id),
-    console.log("email", user?.emailAddresses[0].emailAddress)
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {

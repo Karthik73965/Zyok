@@ -34,7 +34,6 @@ export default function Buttonendpoint(Work_Id: any) {
 
   const GenerateEndpoint = async () => {
     const endpoint = await RandomEndpoint()
-    console.log(endpoint)
     SetEndpoint(endpoint)
   }
 

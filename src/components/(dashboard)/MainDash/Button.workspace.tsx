@@ -40,7 +40,6 @@ export default function ButtonWorkspace() {
         return;
       }
 
-      console.log("Workspace created:", response.workspace);
       router.push("/Dashboard"); // Redirect to dashboard after successful creation
     } catch (error) {
       console.error("Error creating workspace:", error);

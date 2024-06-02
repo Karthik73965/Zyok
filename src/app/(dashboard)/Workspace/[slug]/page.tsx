@@ -10,10 +10,8 @@ import Endpointbox from '@/components/(dashboard)/Endpoints/Endpoint.box';
 type Props = {}
 
 export default function Page({ params }: { params: { slug: string } }) {
-  console.log(params.slug)
   const [WorkspaceInfo, SetWorkspaceInfo] = useState<Object | any>({})
   const [links , setlinks] = useState<any[]>([])
-  console.log(links)
   const WorkspaceId = params.slug
   const { user, isLoaded } = useUser()
   const userId = user?.id

@@ -4,7 +4,6 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 export async function CreateWorkSpace(name: String, description: String, userId: any) {
-  console.log(name, description, userId)
   if (userId == null) return { error: "userId gto null" }
 
   try {
@@ -23,14 +22,12 @@ export async function CreateWorkSpace(name: String, description: String, userId:
 
 }
 export async function GetWorkspace( userId: any ,WorkspaceId :String) {
-  console.log(userId, WorkspaceId)
   try {
     const workspace = await prisma.workspaces.findMany({
       where: {
         WorkspaceId 
       },
     });
-    console.log(workspace)
     if (!workspace) {
       return { error: 'Workspace not found' }; // Informative error message
     }

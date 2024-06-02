@@ -30,7 +30,6 @@ export default function Page({ }: Props) {
     const getwp = async ()=>{
       try {
         const FetchedWorkspce= await GetWorkspace(userId , WorkspaceId  )
-        console.log(FetchedWorkspce)
       } catch (error) {
         console.log(error)
       }

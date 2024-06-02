@@ -8,4 +8,4 @@ export const prisma =
     log: ['query'],
   })
 
-globalForPrisma.prisma = prisma  
+if ('production') globalForPrisma.prisma = prisma

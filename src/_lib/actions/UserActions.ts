@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 
 // Server action function to fetch user details
 export async function getUserDetails(userId:String | any) {
-    console.log(userId)
   try {
     
     const user = await prisma.user.findMany({
@@ -13,7 +12,6 @@ export async function getUserDetails(userId:String | any) {
           OR: [{ userId}], // Specify user ID(s) to find
         },
       });
-    console.log(user)
 
     // Handle cases where user is not found
     if (!user) {
