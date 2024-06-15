@@ -26,7 +26,7 @@ export async function StoringData(formdata: Object, EndpointId: string, Workspac
         const submitted = await prisma.submissions.create({
             data: {
                 formdata,
-                EndpointId: WorkspaceId,
+                EndpointId: EndpointId,
                 WorkspaceId: WorkspaceId,
                 webhook: "https://example.com/webhook",
                 webhook_status: "pending",

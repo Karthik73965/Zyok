@@ -61,7 +61,7 @@ export default function Page({ params }: { params: { slug: string } }) {
          } */}
          {
           links.map((i, index)=>{
-                return <Endpointbox key={index} Endpoint={i.Endpoint} email={i.email} slack_wh={i.slack_wh} discord_wh={i.discord_wh} webhook={i.webhook} Submissions={i.submissions }/>
+                return <Endpointbox key={index} Endpoint={i.Endpoint} email={i.email} slack_wh={i.slack_wh} discord_wh={i.discord_wh} webhook={i.webhook} Submissions={i.submissions } EndpointId={i.EndpointId} />
           })
          }
           </section>

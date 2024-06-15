@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 import { MdContentCopy } from "react-icons/md";
 
@@ -7,11 +8,13 @@ type Props = {
     slack_wh: String,
     discord_wh: String,
     webhook: String,
-    Submissions:Number
+    Submissions:Number,
+    EndpointId:String
 }
 
-export default function Endpointbox({ Endpoint, email, slack_wh, discord_wh, webhook,Submissions }: Props) {
+export default function Endpointbox({ Endpoint, email, slack_wh, discord_wh, webhook,Submissions , EndpointId }: Props) {
     return (
+        <Link href={`/endpoint/${EndpointId}`}>
         <div className='w-[540px] border-[0.5px] px-4 border-gray-400  rounded-xl p-6 py-4 pr-10 shadow-2xl'>
             <div className='flex justify-between align-middle'>
                 <div className='flex'>
@@ -37,5 +40,6 @@ export default function Endpointbox({ Endpoint, email, slack_wh, discord_wh, web
                 Automations list soon
             </div>
         </div>
+        </Link>
     )
 }
