@@ -21,7 +21,7 @@ export async function FindEndpoint(Endpoint: string) {
     }
 }
 
-export async function StoringData(formdata: Object, EndpointId: string, WorkspaceId: string , discord_wh :string , slack_wh:string  ,email :string) {
+export async function StoringData(formdata: Object, EndpointId: string, WorkspaceId: string , discord_wh :string , slack_wh:string  ,email :string , analytics:AnalyticsType) {
     try {
         const submitted = await prisma.submissions.create({
             data: {
@@ -34,6 +34,7 @@ export async function StoringData(formdata: Object, EndpointId: string, Workspac
                 discord_status: "nill",
                 slack: slack_wh,  // Leave empty if not used
                 slack_status: "nill",
+                analytics,
                 email: email,
                 email_status: "pending",
                 no_feilds: 10,  // Number of fields in the form
@@ -171,3 +172,9 @@ export const UpdateEmail = async(Id:string)=>{
     }
 }
 
+
+interface AnalyticsType {
+    Os:string,
+    Browser :string,
+    DeviceType:string
+}

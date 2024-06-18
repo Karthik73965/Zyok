@@ -12,7 +12,12 @@ export async function POST(req:Request) {
                 email,
                 discord_wh,
                 slack_wh,
-                webhook
+                webhook,
+                analytics:{
+                    Os:{},
+                    Browser:{},
+                    DeviceType:{}
+                }
             }
         })
         return NextResponse.json(newpoint)

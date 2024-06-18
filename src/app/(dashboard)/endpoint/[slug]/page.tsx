@@ -16,7 +16,6 @@ export default function Page({ params }: Props) {
     }, [submissions]);
 
     const [formData, setFormData] = useState<any[]>([]);
-    console.log(formData)
 
     useEffect(() => {
         const fetchData = async () => {

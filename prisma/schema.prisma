@@ -45,6 +45,7 @@ model endpoint {
   discord_wh  String?
   slack_wh    String?
   webhook     String?
+  analytics   Json   
   submissions Int      @default(0)
   premium     Boolean  @default(false)
   createdAt   DateTime @default(now())
@@ -66,5 +67,6 @@ model submissions {
   email_status   String   @default("nill")
   no_feilds      Int
   formdata       Json
+  analytics      Json?
   submittedAt    DateTime @default(now())
 }
