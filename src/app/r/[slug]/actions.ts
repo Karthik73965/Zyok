@@ -36,7 +36,7 @@ export async function StoringData(formdata: Object, EndpointId: string, Workspac
                 slack_status: "nill",
                 analytics,
                 email: email,
-                email_status: "pending",
+                email_status: "nill",
                 no_feilds: 10,  // Number of fields in the form
             }
         })

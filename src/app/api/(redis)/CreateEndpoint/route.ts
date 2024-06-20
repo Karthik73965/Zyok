@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req:Request) {
     const { userId, Endpoint  ,WorkspaceId,email , discord_wh ,  slack_wh ,webhook  } = await req.json()
     try {
+        console.log("creatign endpoint ")
         const newpoint = await prisma.endpoint.create({
             data:{
                 userId,
@@ -13,11 +14,7 @@ export async function POST(req:Request) {
                 discord_wh,
                 slack_wh,
                 webhook,
-                analytics:{
-                    Os:{},
-                    Browser:{},
-                    DeviceType:{}
-                }
+                analytics
             }
         })
         return NextResponse.json(newpoint)
@@ -25,4 +22,9 @@ export async function POST(req:Request) {
         return NextResponse.json({message:error})
     }
     
+}
+const  analytics = {
+    Os:{},
+    Browser:{},
+    DeviceType:{}
 }

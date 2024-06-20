@@ -42,11 +42,11 @@ export async function POST(req: Request , { params }: { params: { slug: string }
        
 
        const Id = storing.Id // sanitize 
-    //    Sending_slack_wh(formdata , slack_wh,Id)
-    //    Sending_discord_wh(formdata , discord_wh,Id)
-    //    Sending_email(formdata , email ,endpoint ,Id)
+       Sending_slack_wh(formdata , slack_wh,Id)
+       Sending_discord_wh(formdata , discord_wh,Id)
+       Sending_email(formdata , email ,endpoint ,Id)
     console.log(analytics, "loggig analytics ")
-       const updating = await updating_endpoint(EndpointId ,analytics)
+       const updating = await updating_endpoint(endpoint ,analytics)
        console.log(updating , "upda")
         //returning response 
         return NextResponse.json(EndpointInfo  )

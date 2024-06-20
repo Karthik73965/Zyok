@@ -11,7 +11,6 @@ export const Analytics = async (userAgent: string) => {
         const DeviceType = UaResult?.device?.type || 'Unknown  '
 
         return {
-            UaResult,
             Os,
             Browser,
             DeviceType
@@ -19,7 +18,6 @@ export const Analytics = async (userAgent: string) => {
     } catch (error) {
         console.log("some error happned")
         return {
-            UaResult: 'Unknown',
             Os: 'Unknown',
             Browser: 'Unknown',
             DeviceType: 'Unknown',
@@ -33,22 +31,23 @@ export const Analytics = async (userAgent: string) => {
 
 export const updating_endpoint = async (Endpoint: string, analytics: analytics_type) => {
     try {
+      console.log(Endpoint)
       const info = await FindEndpoint(Endpoint);
       const PreAnalytics = info.analytics;
-      console.log(PreAnalytics , " anayltics");
+      console.log(info.analytics , " anayltics"); 
   
       const Os = analytics.Os;
       const Browser = analytics.Browser;
       const DeviceType = analytics.DeviceType;
   
       // Update OS count
-      if (!(Os in PreAnalytics.OS)) {
-        PreAnalytics.OS[Os] = 1;
+      if (!(Os in PreAnalytics.Os)) {
+        PreAnalytics.Os[Os] = 1;
       } else {
-        if (typeof PreAnalytics.OS[Os] === 'number') {
-          PreAnalytics.OS[Os] += 1;
+        if (typeof PreAnalytics.Os[Os] === 'number') {
+          PreAnalytics.Os[Os] += 1;
         } else {
-          PreAnalytics.OS[Os] = 1;
+          PreAnalytics.Os[Os] = 1;
         }
       }
   
@@ -74,20 +73,18 @@ export const updating_endpoint = async (Endpoint: string, analytics: analytics_t
         }
       }
   
-      const Id = info.Id || "";
-      try {
+      const Id = info.Id || ""; 
         const update = await prisma.endpoint.update({
           where: { Id },
           data: {
             analytics: PreAnalytics,
           },
-        });
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
+        }); 
+        return update
+      
     } catch (error) {
       // Handle general errors
+      return error
     }
   };
 interface analytics_type {
