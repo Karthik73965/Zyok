@@ -14,7 +14,8 @@ export async function POST(req:Request) {
                 discord_wh,
                 slack_wh,
                 webhook,
-                analytics
+                analytics,
+                location
             }
         })
         return NextResponse.json(newpoint)
@@ -27,4 +28,9 @@ const  analytics = {
     Os:{},
     Browser:{},
     DeviceType:{}
+}
+const location = {
+    country:{},
+    city:{},
+    state:{}
 }

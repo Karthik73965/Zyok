@@ -31,7 +31,6 @@ export const Analytics = async (userAgent: string) => {
 
 export const updating_endpoint = async (Endpoint: string, analytics: analytics_type) => {
     try {
-      console.log(Endpoint)
       const info = await FindEndpoint(Endpoint);
       const PreAnalytics = info.analytics;
       console.log(info.analytics , " anayltics"); 
@@ -74,13 +73,13 @@ export const updating_endpoint = async (Endpoint: string, analytics: analytics_t
       }
   
       const Id = info.Id || ""; 
-        const update = await prisma.endpoint.update({
-          where: { Id },
-          data: {
-            analytics: PreAnalytics,
-          },
-        }); 
-        return update
+            const update = await prisma.endpoint.update({
+              where: { Id },
+              data: {
+                analytics: PreAnalytics,
+              },
+            }); 
+            return update
       
     } catch (error) {
       // Handle general errors
@@ -92,3 +91,58 @@ interface analytics_type {
     Browser: string,
     DeviceType: string
 }
+
+export const update_location = async (Endpoint: string, location: any) => {
+  try {
+    const info = await FindEndpoint(Endpoint);
+    const prelocations = info.location
+
+    // locatin checking and updating locations constant and then updating in the database
+    const country = location?.country ||"";
+    const city = location.city;
+    const state = location.state;
+
+    // Location checking and updating prelocation counts
+    if (!(country in prelocations.country)) {
+      prelocations.country[country] = 1;
+    } else {
+      if (typeof prelocations.country[country] === 'number') {
+        prelocations.country[country] += 1;
+      } else {
+        prelocations.country[country] = 1;
+      }
+    }
+
+    if (!(city in prelocations.city)) {
+      prelocations.city[city] = 1;
+    } else {
+      if (typeof prelocations.city[city] === 'number') {
+        prelocations.city[city] += 1;
+      } else {
+        prelocations.city[city] = 1;
+      }
+    }
+
+    if (!(state in prelocations.state)) {
+      prelocations.state[state] = 1;
+    } else {
+      if (typeof prelocations.state[state] === 'number') {
+        prelocations.state[state] = 1;
+      } else {
+        prelocations.state[state] = 1;
+      }
+    }
+
+    const Id = info.Id || "";
+    const update = await prisma.endpoint.update({
+      where: { Id },
+      data: {
+        location: prelocations,
+      },
+    });
+    return update
+  } catch (error) {
+    return error
+  }
+}
+

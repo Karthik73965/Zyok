@@ -3,7 +3,6 @@ import DashNav from '@/components/(dashboard)/DashNav';
 import React, { useEffect, useMemo, useState } from 'react';
 import { FetchingSubmissions, getEndpoint, getSubmissionCount } from './actions';
 import ShowDetails from '@/components/(dashboard)/Endpoints/ShowDetails';
-import { MdDangerous, MdDone } from 'react-icons/md';
 
 type Props = {
     params: { slug: string }
@@ -71,30 +70,26 @@ export default function Page({ params }: Props) {
                     } </div>
                 </section>
                 <section className=''>
-                    <div className="space-y-8">
-                        {formData.map((data, index) => (
-                            <>
+                    <div className="space-y-8  ">
+                        {formData.map((data, index) =>
+                            <main className='border-2 rounded-xl my-3 shadow-2xl p-2 overflow-hidden border-gray-400'>
                                 <section className='flex flex-w  -mb-5 justify-between'>
-                                    <div className='flex  ml'>
-                                        <div className='flex mr-[2vw]'>
-                                            discord status :{
-                                                submissions[index].discord_status !== "true" ? <MdDangerous  className='text-red-500 m-1 text-xl' />:<MdDone className='text-green-400' />
-                                            }
-                                        </div>
-                                        <div className='flex  mr-[2vw] ' >
-                                            email :{
-                                                submissions[index].email_status  !== "true" ? <MdDangerous  className='text-red-500 m-1 text-xl ' />:<MdDone className='text-green-400  m-1 text-xl' />
 
- 
-                                            }
-                                        </div>
-                                        <div className='flex mr-[2vw] '>
-                                            slack status :{
-                                                submissions[index].slack_status !== "true" ? <MdDangerous  className='text-red-500 m-1 text-xl' />:<MdDone className='text-green-400  m-1 text-xl ' />
-                                            }
-                                        </div>
+                                    <div className='ml-[65vw]'>
+                                        <ShowDetails
+                                            data={data}
+                                            discord={submissions[index].discord_status}
+                                            email={submissions[index].email_status}
+                                            slack={submissions[index].slack_status}
+                                            country={submissions[index].location.country}
+                                            city={submissions[index].location.city}
+                                            state={submissions[index].location.state}
+                                            Os={submissions[index].analytics.Os}
+                                            Browser={submissions[index].analytics.Browser}
+                                            DeviceType={submissions[index].analytics.DeviceType}
+                                            submittedAt={submissions[index].submittedAt}
+                                        />
                                     </div>
-                                    <div className=''> <ShowDetails data={data} /></div>
                                 </section>
                                 <div key={index} className="submission   rounded-lg">
                                     <div className="flex  -mt-9 w-[80vw] overflow-x-scroll  ">
@@ -106,8 +101,8 @@ export default function Page({ params }: Props) {
                                         ))}
                                     </div>
                                 </div>
-                            </>
-                        ))}
+                            </main>
+                        )}
                     </div>
                 </section>
                 <center>

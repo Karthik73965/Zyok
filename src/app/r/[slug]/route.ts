@@ -2,7 +2,8 @@
 
 import { NextResponse } from "next/server"
 import { FindEndpoint, Sending_discord_wh, Sending_email, Sending_slack_wh, StoringData,  UpdatingSUbmissions } from "./actions"
-import { Analytics, updating_endpoint } from "./Analytics"
+import { Analytics, update_location, updating_endpoint } from "./Analytics"
+import { geoip } from "./GeoLookup" 
 
 export async function POST(req: Request , { params }: { params: { slug: string } }) {
     try {
@@ -12,9 +13,11 @@ export async function POST(req: Request , { params }: { params: { slug: string }
 
         //userAgent 
         const userAgent = req.headers.get('User-Agent') || ""
+        const ip = "152.58.197.67"
 
         //parsing useragent to analytics of the page 
         const analytics = await Analytics(userAgent)
+        const location = await geoip(ip)
 
         // conditions
         if(endpoint.length !=7  || typeof endpoint != "string"  ){
@@ -37,19 +40,18 @@ export async function POST(req: Request , { params }: { params: { slug: string }
 
        //STORING N DB 
        const formdata = body
-       const storing = await StoringData(formdata ,EndpointId  ,WorkspaceId ,discord_wh, slack_wh , email , analytics  )
+       const storing = await StoringData(formdata ,EndpointId  ,WorkspaceId ,discord_wh, slack_wh , email , analytics  , location )
        UpdatingSUbmissions(endpoint) // update submission 
        
 
-       const Id = storing.Id // sanitize 
-       Sending_slack_wh(formdata , slack_wh,Id)
-       Sending_discord_wh(formdata , discord_wh,Id)
-       Sending_email(formdata , email ,endpoint ,Id)
-    console.log(analytics, "loggig analytics ")
-       const updating = await updating_endpoint(endpoint ,analytics)
-       console.log(updating , "upda")
-        //returning response 
-        return NextResponse.json(EndpointInfo  )
+        //    Sending_slack_wh(formdata , slack_wh,Id)
+        //    Sending_discord_wh(formdata , discord_wh,Id)
+        //    Sending_email(formdata , email ,endpoint ,Id)
+        updating_endpoint(endpoint ,analytics)
+        update_location(endpoint , location)
+
+       //returning response 
+        return NextResponse.json({EndpointInfo  , location} )
 
     } catch (error) {
         console.log(error)

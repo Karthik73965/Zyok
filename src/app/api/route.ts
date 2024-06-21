@@ -12,5 +12,5 @@ export async function GET(req: NextRequest) {
     const browser = uaResult?.browser?.name || 'Unknown';
     const deviceType = uaResult?.device?.type || 'Unknown'
     // await updating_endpoint("SGZvRAe" , analytics)
-    return NextResponse.json({ message: 'GET request successful!', ip, os, browser, deviceType, })
+    return NextResponse.json({ip, os, browser, deviceType, })
 }
