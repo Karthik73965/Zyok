@@ -72,7 +72,7 @@ export default function Page({ params }: Props) {
                 <section className=''>
                     <div className="space-y-8  ">
                         {formData.map((data, index) =>
-                            <main className='border-2 rounded-xl my-3 shadow-2xl p-2 overflow-hidden border-gray-400'>
+                            <main key={index} className='border-2 rounded-xl my-3 shadow-2xl p-2 overflow-hidden border-gray-400'>
                                 <section className='flex flex-w  -mb-5 justify-between'>
 
                                     <div className='ml-[65vw]'>

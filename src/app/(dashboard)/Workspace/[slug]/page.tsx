@@ -24,7 +24,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       }
     }
     Fetching()
-  }, [isLoaded ,userId])
+  }, [isLoaded ,userId , WorkspaceId])
   useEffect(()=>{
     fetch('/api/GetLinks' ,  {
       method: 'POST',
